@@ -692,6 +692,8 @@ public class KSTokenField: UITextField {
       tokenFieldDelegate?.tokenFieldDidEndEditing?(self)
       return super.resignFirstResponder()
    }
+    
+    
    
 }
 

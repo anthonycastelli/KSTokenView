@@ -144,7 +144,9 @@ public class KSTokenView: UIView {
          _updateTokenField()
       }
    }
-   
+
+   public var isEnabled: Bool = true
+    
    /// Default is whiteColor
    override public var backgroundColor: UIColor? {
       didSet {
@@ -390,6 +392,7 @@ public class KSTokenView: UIView {
       _tokenField.tokenFieldDelegate = self
       _tokenField.placeholder = ""
       _tokenField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      _tokenField.isEnabled = self.isEnabled
       _updateTokenField()
       addSubview(_tokenField)
       
@@ -650,7 +653,7 @@ public class KSTokenView: UIView {
    
    func tokenFieldDidEndEditing(_ tokenField: KSTokenField) {
       delegate?.tokenViewDidEndEditing?(self)
-      tokenField.untokenize()
+//      tokenField.untokenize()
       _hideSearchResults()
    }
    
