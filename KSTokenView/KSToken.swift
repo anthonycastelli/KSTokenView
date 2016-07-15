@@ -69,7 +69,7 @@ public class KSToken : UIControl {
    public var borderWidth: CGFloat = 0.0
    
    ///Token border color
-   public var borderColor: UIColor = UIColor.blackColor()
+   public var borderColor: UIColor = UIColor.black()
 
    /// default is 200. Maximum width of token. After maximum limit is reached title is truncated at end with '...'
    private var _maxWidth: CGFloat? = 200
@@ -87,7 +87,7 @@ public class KSToken : UIControl {
    }
    
    /// returns true if token is selected
-   override public var selected: Bool {
+   override public var isSelected: Bool {
       didSet (newValue) {
          setNeedsDisplay()
       }
@@ -108,13 +108,13 @@ public class KSToken : UIControl {
       self.title = title
       self.object = object
       super.init(frame: CGRect.zero)
-      backgroundColor = UIColor.clearColor()
+      backgroundColor = UIColor.clear()
    }
    
    //MARK: - Drawing code
    //__________________________________________________________________________________
    //
-   override public func drawRect(rect: CGRect) {
+   override public func draw(_ rect: CGRect) {
       //// General Declarations
       let context = UIGraphicsGetCurrentContext()
       
@@ -126,7 +126,7 @@ public class KSToken : UIControl {
       var textColor: UIColor
       var backgroundColor: UIColor
       
-      if (selected) {
+      if (isSelected) {
          if (tokenBackgroundHighlightedColor != nil) {
             backgroundColor = tokenBackgroundHighlightedColor!
          } else {
@@ -148,7 +148,7 @@ public class KSToken : UIControl {
       rectanglePath.fill()
       
       var paddingX: CGFloat = 0.0
-      var font = UIFont.systemFontOfSize(14)
+      var font = UIFont.systemFont(ofSize: 14)
       var tokenField: KSTokenField? {
          return superview! as? KSTokenField
       }
@@ -159,9 +159,9 @@ public class KSToken : UIControl {
       
       // Text
       let rectangleTextContent = title
-      let rectangleStyle = NSMutableParagraphStyle.defaultParagraphStyle().mutableCopy() as! NSMutableParagraphStyle
-      rectangleStyle.lineBreakMode = NSLineBreakMode.ByTruncatingTail
-      rectangleStyle.alignment = NSTextAlignment.Center
+      let rectangleStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+      rectangleStyle.lineBreakMode = NSLineBreakMode.byTruncatingTail
+      rectangleStyle.alignment = NSTextAlignment.center
       let rectangleFontAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: rectangleStyle]
       
       let maxDrawableHeight = max(rect.height , font.lineHeight)
@@ -170,14 +170,14 @@ public class KSToken : UIControl {
       
       let textRect = CGRect(x: rect.minX + paddingX, y: rect.minY + (maxDrawableHeight - textHeight) / 2, width: min(maxWidth, rect.width) - (paddingX*2), height: maxDrawableHeight)
       
-      rectangleTextContent.drawInRect(textRect, withAttributes: rectangleFontAttributes)
+      rectangleTextContent.draw(in: textRect, withAttributes: rectangleFontAttributes)
       
-      CGContextSaveGState(context)
-      CGContextClipToRect(context, rect)
-      CGContextRestoreGState(context)
+      context?.saveGState()
+      context?.clipTo(rect)
+      context?.restoreGState()
       
       // Border
-      if (borderWidth > 0.0 && borderColor != UIColor.clearColor()) {
+      if (borderWidth > 0.0 && borderColor != UIColor.clear()) {
          borderColor.setStroke()
          rectanglePath.lineWidth = borderWidth
          rectanglePath.stroke()
