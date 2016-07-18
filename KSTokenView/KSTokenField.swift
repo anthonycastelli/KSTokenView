@@ -605,7 +605,7 @@ public class KSTokenField: UITextField {
          _scrollView.addSubview(_placeholderLabel!)
          
       } else {
-         _placeholderLabel?.frame.origin.x = xPos
+         _placeholderLabel?.frame.origin.x = xPos + 5
       }
    }
    
