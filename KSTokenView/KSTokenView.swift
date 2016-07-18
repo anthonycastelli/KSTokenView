@@ -393,6 +393,7 @@ public class KSTokenView: UIView {
       _tokenField.placeholder = ""
       _tokenField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       _tokenField.isEnabled = self.isEnabled
+      _tokenField.keyboardType = .emailAddress
       _updateTokenField()
       addSubview(_tokenField)
       
