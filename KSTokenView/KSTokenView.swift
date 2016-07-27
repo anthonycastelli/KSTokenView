@@ -912,6 +912,10 @@ extension KSTokenView : UITextFieldDelegate {
       resignFirstResponder()
       return true
    }
+    
+   public func textFieldDidEndEditing(_ textField: UITextField) {
+      resignFirstResponder()
+   }
 }
 
 //MARK: - Extension UITableViewDelegate
