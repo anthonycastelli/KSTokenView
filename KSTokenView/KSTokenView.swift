@@ -658,7 +658,7 @@ public class KSTokenView: UIView {
       _hideSearchResults()
    }
    
-   public override func isFirstResponder() -> Bool {
+   public override var isFirstResponder: Bool {
       return _tokenField.isFirstResponder
    }
    

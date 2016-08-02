@@ -173,7 +173,7 @@ public class KSToken : UIControl {
       rectangleTextContent.draw(in: textRect, withAttributes: rectangleFontAttributes)
       
       context?.saveGState()
-      context?.clipTo(rect)
+      context?.clip(to: rect)
       context?.restoreGState()
       
       // Border
