@@ -69,7 +69,7 @@ public class KSToken : UIControl {
    public var borderWidth: CGFloat = 0.0
    
    ///Token border color
-   public var borderColor: UIColor = UIColor.black()
+   public var borderColor: UIColor = UIColor.black
 
    /// default is 200. Maximum width of token. After maximum limit is reached title is truncated at end with '...'
    private var _maxWidth: CGFloat? = 200
@@ -108,7 +108,7 @@ public class KSToken : UIControl {
       self.title = title
       self.object = object
       super.init(frame: CGRect.zero)
-      backgroundColor = UIColor.clear()
+      backgroundColor = UIColor.clear
    }
    
    //MARK: - Drawing code
@@ -159,7 +159,7 @@ public class KSToken : UIControl {
       
       // Text
       let rectangleTextContent = title
-      let rectangleStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+      let rectangleStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
       rectangleStyle.lineBreakMode = NSLineBreakMode.byTruncatingTail
       rectangleStyle.alignment = NSTextAlignment.center
       let rectangleFontAttributes = [NSFontAttributeName: font, NSForegroundColorAttributeName: textColor, NSParagraphStyleAttributeName: rectangleStyle]
@@ -177,7 +177,7 @@ public class KSToken : UIControl {
       context?.restoreGState()
       
       // Border
-      if (borderWidth > 0.0 && borderColor != UIColor.clear()) {
+      if (borderWidth > 0.0 && borderColor != UIColor.clear) {
          borderColor.setStroke()
          rectanglePath.lineWidth = borderWidth
          rectanglePath.stroke()

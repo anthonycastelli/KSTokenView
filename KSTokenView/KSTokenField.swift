@@ -41,7 +41,7 @@ enum KSTokenFieldState {
 public class KSTokenField: UITextField {
    
    // MARK: - Private Properties
-   private var _cursorColor: UIColor = UIColor.gray() {
+   private var _cursorColor: UIColor = UIColor.gray {
       willSet {
          tintColor = newValue
       }
@@ -79,10 +79,10 @@ public class KSTokenField: UITextField {
    // MARK: - Public Properties
    
    /// default is grayColor()
-   var promptTextColor: UIColor = UIColor.gray()
+   var promptTextColor: UIColor = UIColor.gray
    
    /// default is grayColor()
-   var placeHolderColor: UIColor = UIColor.gray()
+   var placeHolderColor: UIColor = UIColor.gray
    
    /// default is 120.0. After maximum limit is reached, tokens starts scrolling vertically
    var maximumHeight: CGFloat = 120.0
@@ -164,12 +164,12 @@ public class KSTokenField: UITextField {
       contentVerticalAlignment = UIControlContentVerticalAlignment.top
       returnKeyType = UIReturnKeyType.done
       text = KSTextEmpty
-      backgroundColor = UIColor.white()
+      backgroundColor = UIColor.white
       clipsToBounds = true
       _state = .closed
       
       _setScrollRect()
-      _scrollView.backgroundColor = UIColor.clear()
+      _scrollView.backgroundColor = UIColor.clear
       
       _scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIResponder.becomeFirstResponder))
@@ -741,7 +741,7 @@ extension KSTokenField : UIScrollViewDelegate {
    }
    
    func hideCaret() {
-      tintColor = UIColor.clear()
+      tintColor = UIColor.clear
    }
    
    func showCaret() {

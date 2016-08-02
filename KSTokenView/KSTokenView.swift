@@ -164,14 +164,14 @@ public class KSTokenView: UIView {
    }
    
    /// Default is whiteColor()
-   public var searchResultBackgroundColor: UIColor = UIColor.white() {
+   public var searchResultBackgroundColor: UIColor = UIColor.white {
       didSet {
          _searchTableView.backgroundColor = searchResultBackgroundColor
       }
    }
    
    /// default is UIColor.blueColor()
-   public var activityIndicatorColor: UIColor = UIColor.blue() {
+   public var activityIndicatorColor: UIColor = UIColor.blue {
       didSet {
          _indicator.color = activityIndicatorColor
       }
@@ -185,7 +185,7 @@ public class KSTokenView: UIView {
    }
    
    /// default is UIColor.grayColor()
-   public var cursorColor: UIColor = UIColor.gray() {
+   public var cursorColor: UIColor = UIColor.gray {
       didSet {
          _updateTokenField()
       }
@@ -329,14 +329,14 @@ public class KSTokenView: UIView {
    }
 
     /// default is UIColor.grayColor()
-    public var promptColor: UIColor = UIColor.gray() {
+    public var promptColor: UIColor = UIColor.gray {
         didSet {
             _updateTokenField()
         }
     }
 
     /// default is UIColor.grayColor()
-    public var placeholderColor: UIColor = UIColor.gray() {
+    public var placeholderColor: UIColor = UIColor.gray {
         didSet {
             _updateTokenField()
         }
@@ -385,9 +385,9 @@ public class KSTokenView: UIView {
    //
    
    private func _commonSetup() {
-      backgroundColor = UIColor.clear()
+      backgroundColor = UIColor.clear
       _tokenField = KSTokenField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
-      _tokenField.textColor = UIColor.black()
+      _tokenField.textColor = UIColor.black
       _tokenField.isEnabled = true
       _tokenField.tokenFieldDelegate = self
       _tokenField.placeholder = ""
@@ -431,7 +431,7 @@ public class KSTokenView: UIView {
       switch (newValue) {
       case .rounded:
          _tokenField.borderStyle = .roundedRect
-         backgroundColor = UIColor.clear()
+         backgroundColor = UIColor.clear
          
       case .squared:
          _tokenField.borderStyle = .bezel
@@ -498,7 +498,7 @@ public class KSTokenView: UIView {
    - returns: Boolean if token is added
    */
    private func _addTokenFromUntokenizedText(_ tokenField: KSTokenField) -> Bool {
-      if (shouldAddTokenFromTextInput && tokenField.text != nil && tokenField.text != KSTextEmpty) {         
+      if (shouldAddTokenFromTextInput && tokenField.text != nil && tokenField.text != KSTextEmpty) {
          let trimmedString = tokenField.text!.trimmingCharacters(in: CharacterSet.whitespaces)
          addTokenWithTitle(trimmedString)
          _hideSearchResults()
@@ -659,7 +659,7 @@ public class KSTokenView: UIView {
    }
    
    public override func isFirstResponder() -> Bool {
-      return _tokenField.isFirstResponder()
+      return _tokenField.isFirstResponder
    }
    
    override public func becomeFirstResponder() -> Bool {
@@ -711,7 +711,7 @@ public class KSTokenView: UIView {
    }
    
    private func _showSearchResults() {
-      if (_tokenField.isFirstResponder()) {
+      if (_tokenField.isFirstResponder) {
          _showingSearchResult = true
          addSubview(_searchTableView)
          _searchTableView.frame.origin = CGPoint(x: 0, y: bounds.height)
@@ -761,7 +761,7 @@ public class KSTokenView: UIView {
       }
       
       if (shouldSortResultsAlphabatically) {
-         return filteredResults.sorted(isOrderedBefore: { s1, s2 in return self._sortStringForObject(s1) < self._sortStringForObject(s2) })
+         return filteredResults.sorted(by: { s1, s2 in return self._sortStringForObject(s1) < self._sortStringForObject(s2) })
       }
       return filteredResults
    }

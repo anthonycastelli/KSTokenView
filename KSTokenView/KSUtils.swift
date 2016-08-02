@@ -29,14 +29,14 @@ let KSTextEmpty = "\u{200B}"
 class KSUtils : NSObject {
    
    class func getRect(_ str: NSString, width: CGFloat, height: CGFloat, font: UIFont) -> CGRect {
-      let rectangleStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+      let rectangleStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
       rectangleStyle.alignment = NSTextAlignment.center
       let rectangleFontAttributes = [NSFontAttributeName: font, NSParagraphStyleAttributeName: rectangleStyle]
       return str.boundingRect(with: CGSize(width: width, height: height), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: rectangleFontAttributes, context: nil)
    }
    
    class func getRect(_ str: NSString, width: CGFloat, font: UIFont) -> CGRect {
-      let rectangleStyle = NSMutableParagraphStyle.default().mutableCopy() as! NSMutableParagraphStyle
+      let rectangleStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
       rectangleStyle.alignment = NSTextAlignment.center
       let rectangleFontAttributes = [NSFontAttributeName: font, NSParagraphStyleAttributeName: rectangleStyle]
       return str.boundingRect(with: CGSize(width: width, height: CGFloat(MAXFLOAT)), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: rectangleFontAttributes, context: nil)
