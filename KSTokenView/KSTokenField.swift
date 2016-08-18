@@ -41,36 +41,36 @@ enum KSTokenFieldState {
 public class KSTokenField: UITextField {
    
    // MARK: - Private Properties
-   private var _cursorColor: UIColor = UIColor.gray {
+   internal var _cursorColor: UIColor = UIColor.gray {
       willSet {
          tintColor = newValue
       }
    }
-   private var _setupCompleted: Bool = false
-   private var _selfFrame: CGRect?
-   private var _caretPoint: CGPoint?
-   private var _placeholderValue: String?
-   private var _placeholderLabel: UILabel?
-   private var _state: KSTokenFieldState = .opened
-   private var _minWidthForInput: CGFloat = 50.0
-   private var _separatorText: String?
-   private var _font: UIFont?
-   private var _paddingX: CGFloat?
-   private var _paddingY: CGFloat?
-   private var _marginX: CGFloat?
-   private var _marginY: CGFloat?
-   private var _bufferX: CGFloat?
-   private var _removesTokensOnEndEditing = true
-   private var _scrollView = UIScrollView(frame: .zero)
-   private var _scrollPoint = CGPoint.zero
-   private var _direction: KSTokenViewScrollDirection = .vertical {
+   internal var _setupCompleted: Bool = false
+   internal var _selfFrame: CGRect?
+   internal var _caretPoint: CGPoint?
+   internal var _placeholderValue: String?
+   internal var _placeholderLabel: UILabel?
+   internal var _state: KSTokenFieldState = .opened
+   internal var _minWidthForInput: CGFloat = 50.0
+   internal var _separatorText: String?
+   internal var _font: UIFont?
+   internal var _paddingX: CGFloat?
+   internal var _paddingY: CGFloat?
+   internal var _marginX: CGFloat?
+   internal var _marginY: CGFloat?
+   internal var _bufferX: CGFloat?
+   internal var _removesTokensOnEndEditing = true
+   internal var _scrollView = UIScrollView(frame: .zero)
+   internal var _scrollPoint = CGPoint.zero
+   internal var _direction: KSTokenViewScrollDirection = .vertical {
       didSet {
          if (oldValue != _direction) {
             updateLayout()
          }
       }
    }
-   private var _descriptionText: String = "selections" {
+   internal var _descriptionText: String = "selections" {
       didSet {
          _updateText()
       }
@@ -397,7 +397,7 @@ public class KSTokenField: UITextField {
       var tokenPosition = CGPoint(x: _marginX!, y: _marginY!)
       
       for token: KSToken in tokens {
-         let width = KSUtils.getRect(token.title, width: bounds.size.width, font: _font!).size.width + ceil(_paddingX!*2+1)
+         let width = KSUtils.getRect(token.title as NSString, width: bounds.size.width, font: _font!).size.width + ceil(_paddingX!*2+1)
          let tokenWidth = min(width, token.maxWidth)
          
          // Add token at specific position
@@ -445,7 +445,7 @@ public class KSTokenField: UITextField {
       var tokenPosition = CGPoint(x: _marginX!, y: _marginY!)
       
       for token: KSToken in tokens {
-         let width = KSUtils.getRect(token.title, width: bounds.size.width, font: _font!).size.width + ceil(_paddingX!*2+1)
+         let width = KSUtils.getRect(token.title as NSString, width: bounds.size.width, font: _font!).size.width + ceil(_paddingX!*2+1)
          let tokenWidth = min(width, token.maxWidth)
          
          if ((token.superview) != nil) {

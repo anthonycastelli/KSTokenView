@@ -69,7 +69,7 @@ import UIKit
    @objc optional func tokenViewDidBeginEditing(_ tokenView: KSTokenView)
    @objc optional func tokenViewDidEndEditing(_ tokenView: KSTokenView)
    
-   func tokenView(_ token: KSTokenView, performSearchWithString string: String, completion: ((results: Array<AnyObject>) -> Void)?)
+   func tokenView(_ token: KSTokenView, performSearchWithString string: String, completion: ((_ results: Array<AnyObject>) -> Void)?)
    func tokenView(_ token: KSTokenView, displayTitleForObject object: AnyObject) -> String
    @objc optional func tokenView(_ token: KSTokenView, withObject object: AnyObject, tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell
    @objc optional func tokenView(_ token: KSTokenView, didSelectRowAtIndexPath indexPath: IndexPath)
@@ -95,13 +95,13 @@ public class KSTokenView: UIView {
    //MARK: - Private Properties
    //__________________________________________________________________________________
    //
-   private var _tokenField: KSTokenField!
-   private var _searchTableView: UITableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
-   private var _resultArray = [AnyObject]()
-   private var _showingSearchResult = false
-   private var _indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-   private let _searchResultHeight: CGFloat = 200.0
-   private var _lastSearchString: String = ""
+   internal var _tokenField: KSTokenField!
+   internal var _searchTableView: UITableView = UITableView(frame: .zero, style: UITableViewStyle.plain)
+   internal var _resultArray = [AnyObject]()
+   internal var _showingSearchResult = false
+   internal var _indicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+   internal let _searchResultHeight: CGFloat = 200.0
+   internal var _lastSearchString: String = ""
    
    //MARK: - Public Properties
    //__________________________________________________________________________________
@@ -384,7 +384,7 @@ public class KSTokenView: UIView {
    //__________________________________________________________________________________
    //
    
-   private func _commonSetup() {
+   internal func _commonSetup() {
       backgroundColor = UIColor.clear
       _tokenField = KSTokenField(frame: CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height))
       _tokenField.textColor = UIColor.black
@@ -423,11 +423,11 @@ public class KSTokenView: UIView {
    //__________________________________________________________________________________
    //
    
-   private func _updateTokenField() {
+   internal func _updateTokenField() {
       _tokenField.parentView = self
    }
    
-   private func _updateTokenFieldLayout(_ newValue: KSTokenViewStyle) {
+   internal func _updateTokenFieldLayout(_ newValue: KSTokenViewStyle) {
       switch (newValue) {
       case .rounded:
          _tokenField.borderStyle = .roundedRect
@@ -439,14 +439,14 @@ public class KSTokenView: UIView {
       }
    }
    
-   private func _lastToken() -> KSToken? {
+   internal func _lastToken() -> KSToken? {
       if _tokenField.tokens.count == 0 {
          return nil
       }
       return _tokenField.tokens.last
    }
    
-   private func _removeToken(_ token: KSToken, removingAll: Bool = false) {
+   internal func _removeToken(_ token: KSToken, removingAll: Bool = false) {
       if token.sticky {return}
       if (!removingAll) {
          var shouldRemoveToken: Bool? = true
@@ -467,7 +467,7 @@ public class KSTokenView: UIView {
       }
    }
    
-   private func _canAddMoreToken() -> Bool {
+   internal func _canAddMoreToken() -> Bool {
       if (maxTokenLimit != -1 && _tokenField.tokens.count >= maxTokenLimit) {
          _hideSearchResults()
          return false
@@ -497,7 +497,7 @@ public class KSTokenView: UIView {
    
    - returns: Boolean if token is added
    */
-   private func _addTokenFromUntokenizedText(_ tokenField: KSTokenField) -> Bool {
+   internal func _addTokenFromUntokenizedText(_ tokenField: KSTokenField) -> Bool {
       if (shouldAddTokenFromTextInput && tokenField.text != nil && tokenField.text != KSTextEmpty) {
          let trimmedString = tokenField.text!.trimmingCharacters(in: CharacterSet.whitespaces)
          addTokenWithTitle(trimmedString)
@@ -682,7 +682,7 @@ public class KSTokenView: UIView {
    
    - parameter string: Search keyword
    */
-   private func _startSearchWithString(_ string: String) {
+   internal func _startSearchWithString(_ string: String) {
       if (!_canAddMoreToken()) {
          return
       }
@@ -698,19 +698,19 @@ public class KSTokenView: UIView {
       })
    }
    
-   private func _displayData(_ results: Array<AnyObject>) {
+   internal func _displayData(_ results: Array<AnyObject>) {
       _resultArray = _filteredSearchResults(results)
       _searchTableView.reloadData()
       _showSearchResults()
    }
    
-   private func _showEmptyResults() {
+   internal func _showEmptyResults() {
       _resultArray.removeAll(keepingCapacity: false)
       _searchTableView.reloadData()
       _showSearchResults()
    }
    
-   private func _showSearchResults() {
+   internal func _showSearchResults() {
       if (_tokenField.isFirstResponder) {
          _showingSearchResult = true
          addSubview(_searchTableView)
@@ -720,14 +720,14 @@ public class KSTokenView: UIView {
       delegate?.tokenViewDidShowSearchResults?(self)
    }
    
-   private func _hideSearchResults() {
+   internal func _hideSearchResults() {
       _showingSearchResult = false
       _searchTableView.isHidden = true
       _searchTableView.removeFromSuperview()
       delegate?.tokenViewDidHideSearchResults?(self)
    }
    
-   private func _repositionSearchResults() {
+   internal func _repositionSearchResults() {
       if (!_showingSearchResult) {
          return
       }
@@ -735,7 +735,7 @@ public class KSTokenView: UIView {
       _searchTableView.layoutIfNeeded()
    }
    
-   private func _filteredSearchResults(_ results: Array <AnyObject>) -> Array <AnyObject> {
+   internal func _filteredSearchResults(_ results: Array <AnyObject>) -> Array <AnyObject> {
       var filteredResults: Array<AnyObject> = Array()
       
       for object: AnyObject in results {
@@ -766,17 +766,17 @@ public class KSTokenView: UIView {
       return filteredResults
    }
    
-   private func _sortStringForObject(_ object: AnyObject) -> String {
+   internal func _sortStringForObject(_ object: AnyObject) -> String {
       let title = (delegate?.tokenView(self, displayTitleForObject: object))!
       return title
    }
    
-   private func _showActivityIndicator() {
+   internal func _showActivityIndicator() {
       _indicator.startAnimating()
       _searchTableView.tableHeaderView = _indicator
    }
    
-   private func _hideActivityIndicator() {
+   internal func _hideActivityIndicator() {
       _indicator.stopAnimating()
       _searchTableView.tableHeaderView = nil
    }
